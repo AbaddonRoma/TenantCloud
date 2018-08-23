@@ -1,0 +1,64 @@
+<section class="container" *ngIf="templateTrigger">
+  <h5 class="" mat-dialog-title>Edit user</h5>
+  <div class="users">
+    <div class="user" *ngFor="let user of users; let i = index;" (click)="close()">
+      <div class="settings" (click)="chosePerson(user)">
+        <i class="fas fa-times" (click)="deletePerson(user, i)"
+           title="Remove this user: {{user.userName}} | {{user.email}}">
+        </i>
+      </div>
+      <img [src]='user.avatar' alt="">
+      <span>{{user.userName}}</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="button-group col-12">
+      <button mat-button (click)="close()">Close</button>
+      <button mat-button (click)="addPersonOrCancel()">Add person</button>
+    </div>
+  </div>
+</section>
+
+
+<section class="container" id="addPerson" *ngIf="!templateTrigger">
+  <div class="row">
+    <div class="col-12 content-wrapper">
+      <form class="form" [formGroup]="userForm" (ngSubmit)="setPerson()">
+        <mat-card class="mat-bg-primary font form-container">
+          <h5>Add person</h5>
+          <mat-form-field class="color font">
+            <input matInput [(ngModel)]="userName" name="username" formControlName="name" placeholder="name">
+          </mat-form-field>
+          <small *ngIf="this.userForm.controls.name.errors && (this.userForm.controls.name.dirty || this.userForm.controls.name.touched)" class="invalid">
+            <div *ngIf="this.userForm.controls.name.errors.required">Name is required</div>
+            <div *ngIf="this.userForm.controls.name.errors.pattern">Name can't have any special characters</div>
+            <div *ngIf="this.userForm.controls.name.errors.minlength">Name must be at least 2 characters</div>
+            <div *ngIf="this.userForm.controls.name.errors.minlength">Name can be at maximum 12 characters</div>
+          </small>
+          <br>
+          <mat-form-field class="color font">
+            <input matInput [(ngModel)]="email" name="email" formControlName="email" placeholder="email">
+          </mat-form-field>
+          <small *ngIf="this.userForm.controls.email.errors && (this.userForm.controls.email.dirty || this.userForm.controls.email.touched)" class="invalid">
+              <div *ngIf="this.userForm.controls.email.errors.required">Email is required</div>
+              <div *ngIf="this.userForm.controls.email.errors.email">Incorrect email</div>
+            </small>
+          <div class="row">
+            <div class="avatars" *ngFor="let pic of userPictures" (click)="this.avatar = pic">
+              <img [src]='pic' class="pic" alt="" [ngClass]="{'chosen' : pic == this.avatar}">
+            </div>
+          </div>
+        </mat-card>
+        <div class="row">
+          <div class="col-12 button-group d-flex justify-content-end">
+            <button mat-button (click)="addPersonOrCancel()">Cancel</button>
+            <button type="submit" mat-button [disabled]="!userForm.valid">Add</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+

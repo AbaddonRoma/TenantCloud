@@ -1,0 +1,197 @@
+.card-wrapper {
+  padding: 0;
+  min-height: 100vh;
+}
+mat-sidenav-container{
+  height: 100%;
+}
+
+// HEADER
+.header mat-toolbar-row {
+  height: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.logo-img {
+  border-radius: 50%;
+  margin: auto 10px;
+  cursor: pointer;
+}
+
+.search {
+  height: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 1em;
+  input {
+    margin: auto;
+    width: 100%;
+    font-size: 1em;
+  }
+}
+
+// SECTION
+.main {
+  height: 100%;
+  margin-top: 15px;
+}
+.content-head {
+  padding: 10px 24px;
+  margin-top: 15px;
+  h5{
+    margin: auto 0;
+  }
+  .settings {
+    margin: auto 0;
+    cursor: pointer;
+  }
+}
+.bookmark-list {
+  margin: 10px;
+  h5 {
+    margin-left: 30px;
+    font-size: 1.25em;
+    line-height: 2.5rem;
+    max-height: 100%;
+  }
+  ul {
+    padding: 0 15px;
+  }
+}
+
+.bookmark-list ul > li {
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  a, button {
+    font-size: 1em;
+    line-height: 2rem;
+  }
+  .bookmark-title {
+    margin: auto 0;
+    padding: 0 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 600;
+  }
+  .bookmark-title:hover {
+    background-color: rgba(180,180,180,0.85);
+    opacity: 0.7;
+  }
+  .bookmark-delete:hover {
+    color: #F44336;
+    cursor: pointer;
+  }
+}
+
+.create-bookmark {
+  margin: 10px 0 0 20px;
+  height: 2.5rem;
+  button {
+    font-size: 1.25em;
+    line-height: 2.5rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+}
+
+.edit-section-header {
+  margin: 1rem 0 0 20px;
+  font-size: 1.25em;
+  line-height: 2.5rem;
+}
+
+.edit-section {
+  margin: 10px;
+  padding: 15px;
+}
+
+.edit-section label {
+  font-weight: 500;
+  font-size: 1em;
+  line-height: 2rem;
+}
+
+.edit-section input {
+  font-size: 1em;
+  line-height: 2rem;
+}
+
+.edit-section .form-group {
+  //height: 4.5rem;
+}
+
+.edit-buttons {
+  width: 100%;
+  padding: 0 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  button {
+    font-size: 1em;
+    line-height: 2rem;
+    border-radius: 8px;
+
+  }
+
+}
+
+.hidden {
+  display: none;
+}
+
+.invalid {
+  color: red;
+}
+
+.no-user {
+  color: rgba(255,58,58,0.85)
+}
+
+// Font-size styles
+
+.font {
+  font-size: 1em;
+}
+
+.veryLarge {
+  font-size: 2em;
+}
+
+.large {
+  font-size: 1.5em;
+}
+
+.medium {
+  font-size: 1em;
+}
+
+.small {
+  font-size: 0.75em;
+}
+
+.verySmall {
+  font-size: 0.5em;
+}

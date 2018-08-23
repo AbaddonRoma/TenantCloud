@@ -1,0 +1,186 @@
+<mat-sidenav-container class="{{user.userOptions.theme}} font">
+  <mat-card class="mat-bg-primary card-wrapper">
+
+    <div class="container-fluid">
+      <div class="row">
+        <mat-card class="col-5 col-sm-3 col-lg-2 mat-bg-accent" color="primary">
+          <div class="nav">
+            <a (click)="scrollToElement(people)" class="nav-item">People</a>
+            <a (click)="scrollToElement(appearance)" class="nav-item">Appearance</a>
+            <div class="nav-advanced">
+              <span class="">Advanced</span>
+              <a (click)="scrollToElement(printing)" class="nav-item">Printing</a>
+              <a (click)="scrollToElement(reset)" class="nav-item">Reset</a>
+            </div>
+          </div>
+        </mat-card>
+
+        <section class="col-7 col-sm-9 col-lg-10">
+          <div class="main">
+            <div class="row">
+              <div class="col-12">
+                <i routerLink="" class="fas fa-arrow-left goWebsite">Website</i>
+                <mat-card class="mat-bg-primary font">
+                  <h5 class="font" #people>People</h5>
+                  <div>
+                    <div class="people mat-bg-primary">
+                      <mat-toolbar color="primary" class="user-name col-12 mat-bg-accent font">
+                        <img src="{{user.avatar}}" alt="profile picture" class="user-pic">
+                        <div class="user-info font">
+                          <span class="people-user-name">{{user.userName}}</span>
+                          <span class="people-email">{{user.email}}</span>
+                        </div>
+                        <div class="people-edit">
+                          <button class="font" routerLink="manageProfile" mat-button>Edit</button>
+                        </div>
+                      </mat-toolbar>
+
+                      <hr>
+
+                      <div class="col-12 manage-other-people">
+                        <button mat-button class="font" (click)="openDialog(users)">Manage other people</button>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+
+            <br>
+
+            <section class="row">
+              <div class="col-12">
+                <mat-card class="mat-bg-primary font">
+                  <h5 class="col-12 font" #appearance>Appearance</h5>
+                  <div class="col-12">
+                    <div class="appearance">
+                      <h6 class="themes-header font">Themes</h6>
+                      <div class="themes-inputs">
+                        <input type="radio" name="theme" id="white-theme" [value]="'light-theme'"
+                               [(ngModel)]="user.userOptions.theme"
+                               (change)="setTheme('light-theme')">
+                        <label for="white-theme">White</label>
+                        <input type="radio" name="theme" id="black-theme" [value]="'dark-theme'"
+                               [(ngModel)]="user.userOptions.theme"
+                               (change)="setTheme('dark-theme')">
+                        <label for="black-theme">Black</label>
+                        <input type="radio" name="theme" id="color-theme" [value]="'color-theme'"
+                               [(ngModel)]="user.userOptions.theme"
+                               (change)="setTheme('color-theme')">
+                        <label for="color-theme">Colorful</label>
+                      </div>
+                      <hr>
+                      <div class="bookmarks-list">
+                        <h6 class="add-bookmark-header font">Add bookmarks</h6>
+                        <ul class="bookmark-toggle">
+                          <li *ngFor="let bkm of user?.bookmarks | paginate: { itemsPerPage: 5, currentPage: page }
+                                                        | search: searchFilterPipe; let i = index">
+                            <a class="bookmark-title" href="{{bkm.url}}" target="_blank">
+                              <span>{{bkm.title}}</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <pagination-controls class="mat-bg-primary color pagination"
+                                           (pageChange)="page = $event"></pagination-controls>
+                      <div class="row">
+                        <form class="row" [formGroup]="bookmarkForm" (ngSubmit)="addBookmark()">
+                          <div class="form-group col-12">
+                            <label for="bookmark-title" class="">Bookmark title</label>
+                            <input type="text" [(ngModel)]="bookmark.title"
+                                   id="bookmark-title" class="form-control" name="title"
+                                   formControlName="title">
+                          </div>
+                          <small
+                            *ngIf="this.bookmarkForm.controls.title.errors && (this.bookmarkForm.controls.title.dirty || this.bookmarkForm.controls.title.touched)"
+                            class="invalid">
+                            <div *ngIf="this.bookmarkForm.controls.title.errors.required">Title is required</div>
+                          </small>
+                          <div class="form-group col-12">
+                            <label for="bookmark-url">Bookmark URL</label>
+                            <input type="text" [(ngModel)]="bookmark.url"
+                                   id="bookmark-url" class="form-control" name='url'
+                                   formControlName="url">
+                          </div>
+                          <small
+                            *ngIf="this.bookmarkForm.controls.url.errors && (this.bookmarkForm.controls.url.dirty || this.bookmarkForm.controls.url.touched)"
+                            class="invalid">
+                            <div *ngIf="this.bookmarkForm.controls.url.errors.required">URL is required</div>
+                            <div *ngIf="this.bookmarkForm.controls.url.errors.pattern">Incorrect URL</div>
+                          </small>
+                            <button type="submit" class="add-bookmark" mat-raised-button color="primary" [disabled]="!bookmarkForm.valid">Add</button>
+                        </form>
+                      </div>
+
+                      <hr>
+
+                      <div class="show-bookmarks">
+                        <span>Show bookmarks</span>
+                        <mat-slide-toggle
+                          class="toggle-bookmarks"
+                          color="primary"
+                          [(ngModel)]="user.userOptions.showBookmarks"
+                          (change)="bookmarksToggle()">
+                        </mat-slide-toggle>
+                      </div>
+
+                      <hr>
+
+                      <div class="font-size">
+                        <span>Font size</span>
+                        <select name="" id="font-size" [(ngModel)]="user.userOptions.fontSize"
+                                (change)="fontSize(user.userOptions.fontSize)">
+                          <option *ngFor="let font of fonts" [value]="font.id">
+                            {{font.value}}
+                          </option>
+                        </select>
+                      </div>
+
+                      <hr>
+
+                      <div class="page-zoom">
+                        <span>Page zoom</span>
+                        <select name="" id="page-size" [(ngModel)]="user.userOptions.pageSize" (change)="zoomHtml()">
+                          <option value="25">25%</option>
+                          <option value="50">50%</option>
+                          <option value="100">100%(default)</option>
+                          <option value="125">125%</option>
+                          <option value="150">150%</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </section>
+
+            <h4 class="advanced-header font">Advanced</h4>
+            <mat-card class="mat-bg-primary">
+              <h5 class="print-header font" #printing>Printing</h5>
+              <section class="row">
+                <div class="col-12">
+                  <div class="print">
+                    <button mat-stroked-button (click)="printWebPate()">Printers</button>
+                  </div>
+                </div>
+              </section>
+            </mat-card>
+            <br>
+            <section class="row">
+              <div class="col-12">
+                <mat-card class="mat-bg-primary">
+                  <h5 class="reset-header font" #reset>Reset</h5>
+                  <div class="reset">
+                    <button class="reset-button" mat-stroked-button (click)="resetUserOptions()">Reset</button>
+                    <br>
+                    <small class="text-muted">Restore settings to their original defaults</small>
+                  </div>
+                </mat-card>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </div>
+  </mat-card>
+</mat-sidenav-container>

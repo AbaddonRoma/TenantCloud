@@ -1,0 +1,105 @@
+<mat-sidenav-container class="{{user.userOptions.theme}} font">
+  <mat-card class="mat-bg-primary card-wrapper">
+
+    <header>
+      <mat-toolbar class="header" color="primary">
+        <mat-toolbar-row>
+          <div class="logo">
+            <img class="logo-img" src="../../assets/logo.png">
+          </div>
+          <div class="search">
+            <input type="search" placeholder="search" [(ngModel)]="searchFilterPipe">
+          </div>
+        </mat-toolbar-row>
+      </mat-toolbar>
+    </header>
+
+    <section class="container-fluid">
+      <mat-card class="mat-bg-primary d-flex justify-content-between content-head">
+        <h5>WebPage</h5>
+        <div routerLink="settings" class="settings"><span>Settings </span><i class="fas fa-cog"></i></div>
+      </mat-card>
+    </section>
+    <section class="main">
+      <div class="container-fluid">
+        <section class="row">
+          <div class="col-12">
+            <mat-card class="mat-bg-primary">
+              <div class="bookmark-list font mat-bg-primary">
+
+                <h5>
+                  Bookmark list
+                </h5>
+
+                <ul class="bookmark-toggle">
+                  <li *ngFor="let bkm of user?.bookmarks | paginate: { itemsPerPage: 5, currentPage: page }
+                                                        | search: searchFilterPipe; let i = index">
+                    <a class="bookmark-title" href="{{bkm.url}}" target="_blank">
+                      <span>{{bkm.title}}</span>
+                    </a>
+                    <div>
+                        <button mat-button color="primary" class="bookmark-edit" (click)="editBookmark(bkm, i)">Edit</button>
+                        <i class="far fa-trash-alt bookmark-delete" (click)="deleteBookmark(i)"></i>
+                    </div>
+                  </li>
+                </ul>
+                <pagination-controls class="mat-bg-primary color pagination" (pageChange)="page = $event"></pagination-controls>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <div class="create-bookmark">
+          <button mat-button color="primary" (click)="onCreateButtonClick()">Create bookmark</button>
+        </div>
+        <div class="no-user hidden">
+          <h5>Create user first to create bookmarks</h5>
+        </div>
+
+
+        <h5 class="edit-section-header hidden" *ngIf="!edit">
+          Create bookmark
+        </h5>
+        <h5 class="edit-section-header hidden" *ngIf="edit">
+          Edit bookmark
+        </h5>
+
+        <section class="row hidden bookmark-set">
+          <div class="col-12 col-sm-8 col-md-8 col-lg-6 col-xl-6">
+            <mat-card class="edit-section mat-bg-primary">
+              <div class="container">
+                <form class="row" [formGroup]="bookmarkForm" (ngSubmit)="saveBookmark()">
+                  <div class="form-group col-12">
+                    <label for="bookmark-title" class="">Bookmark title</label>
+                    <input type="text" [(ngModel)]="bookmark.title"
+                           id="bookmark-title" class="form-control" name="title"
+                            formControlName="title">
+                  </div>
+                  <small *ngIf="this.bookmarkForm.controls.title.errors && (this.bookmarkForm.controls.title.dirty || this.bookmarkForm.controls.title.touched)" class="invalid">
+                      <div *ngIf="this.bookmarkForm.controls.title.errors.required">Title is required</div>
+                    </small>
+                  <div class="form-group col-12">
+                    <label for="bookmark-url">Bookmark URL</label>
+                    <input type="text" [(ngModel)]="bookmark.url"
+                           id="bookmark-url" class="form-control" name='url'
+                           formControlName="url">
+                  </div>
+                  <small *ngIf="this.bookmarkForm.controls.url.errors && (this.bookmarkForm.controls.url.dirty || this.bookmarkForm.controls.url.touched)" class="invalid">
+                      <div *ngIf="this.bookmarkForm.controls.url.errors.required">URL is required</div>
+                      <div *ngIf="this.bookmarkForm.controls.url.errors.pattern">Incorrect URL</div>
+                    </small>
+                  <div class="edit-buttons">
+                    <button type="button" mat-stroked-button (click)="cancel()">cancel</button>
+                    <button type="submit" mat-raised-button color="primary" [disabled]="!bookmarkForm.valid">save</button>
+                  </div>
+                </form>
+
+              </div>
+            </mat-card>
+          </div>
+        </section>
+      </div>
+    </section>
+
+  </mat-card>
+</mat-sidenav-container>

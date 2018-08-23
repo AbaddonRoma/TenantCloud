@@ -1,0 +1,50 @@
+<mat-sidenav-container class="{{user.userOptions.theme}} font">
+  <mat-card class="mat-bg-primary card-wrapper">
+
+    <header>
+      <mat-toolbar class="header" color="primary">
+        <mat-toolbar-row class="container color font">
+          <i routerLink="../" class="fas fa-arrow-left"></i>
+          <span>Edit person</span>
+        </mat-toolbar-row>
+      </mat-toolbar>
+    </header>
+
+    <section class="container">
+      <div class="row">
+        <div class="col-12 content-wrapper">
+          <mat-card class="mat-bg-primary font">
+            <form class="form" [formGroup]="userForm" (ngSubmit)="editPerson()">
+              <mat-form-field class="color font">
+                <input matInput [(ngModel)]="user.userName" name="username" formControlName="name">
+              </mat-form-field>
+              <small *ngIf="this.userForm.controls.name.errors && (this.userForm.controls.name.dirty || this.userForm.controls.name.touched)" class="invalid">
+                  <div *ngIf="this.userForm.controls.name.errors.required">Name is required</div>
+                  <div *ngIf="this.userForm.controls.name.errors.pattern">Name can't have any special characters</div>
+                  <div *ngIf="this.userForm.controls.name.errors.minlength">Name must be at least 2 characters</div>
+                  <div *ngIf="this.userForm.controls.name.errors.minlength">Name can be at maximum 12 characters</div>
+                </small>
+              <br>
+              <mat-form-field class="color font">
+                <input matInput [(ngModel)]="user.email" name="email" formControlName="email">
+              </mat-form-field>
+              <small *ngIf="this.userForm.controls.email.errors && (this.userForm.controls.email.dirty || this.userForm.controls.email.touched)" class="invalid">
+                  <div *ngIf="this.userForm.controls.email.errors.required">Email is required</div>
+                  <div *ngIf="this.userForm.controls.email.errors.email">Incorrect email</div>
+                </small>
+              <div class="row">
+                <div class="avatars" *ngFor="let pic of userPictures" (click)="user.avatar = pic">
+                  <img [src]='pic' class="pic" alt="" [ngClass]="{'chosen' : pic == user.avatar}">
+                </div>
+              </div>
+              <div class="row d-flex justify-content-end">
+                <button type="submit" class="button-done" mat-button [disabled]="!userForm.valid">Done</button>
+              </div>
+            </form>
+          </mat-card>
+        </div>
+      </div>
+    </section>
+
+  </mat-card>
+</mat-sidenav-container>

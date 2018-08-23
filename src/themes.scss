@@ -1,0 +1,76 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$light-theme-primary: mat-palette($mat-indigo, 500);
+$light-theme-accent: mat-palette($mat-pink, 400);
+$light-theme-warn: mat-palette($mat-deep-orange, 700);
+
+$light-theme: mat-light-theme($light-theme-primary, $light-theme-accent, $light-theme-warn);
+
+.light-theme {
+  @include angular-material-theme($light-theme);
+}
+
+$dark-theme-primary: mat-palette($mat-purple, 500);
+$dark-theme-accent: mat-palette($mat-green, A200);
+$dark-theme-warn: mat-palette($mat-red, 600);
+
+$dark-theme: mat-dark-theme($dark-theme-primary, $dark-theme-accent, $dark-theme-warn);
+
+.dark-theme {
+  @include angular-material-theme($dark-theme);
+}
+
+$color-theme-primary: mat-palette($mat-green, 500);
+$color-theme-accent: mat-palette($mat-orange, A200);
+$color-theme-warn: mat-palette($mat-red, 600);
+
+
+$color-theme: mat-light-theme($color-theme-primary, $color-theme-accent, $color-theme-warn);
+
+$color-button-theme-primary: mat-palette($mat-green, 500);
+$color-button-theme-accent: mat-palette($mat-pink, A400);
+$color-button-theme-warn: mat-palette($mat-red, A400);
+$color-button-theme: mat-light-theme($color-button-theme-primary, $color-button-theme-accent, $color-button-theme-warn);
+
+$color-card-theme-primary: mat-palette($mat-orange, 500);
+$color-card-theme-accent: mat-palette($mat-pink, A400);
+$color-card-theme-warn: mat-palette($mat-red, A400);
+
+$color-card-theme: mat-light-theme($color-card-theme-primary, $color-card-theme-accent, $color-card-theme-warn);
+
+.color-theme {
+  @include angular-material-theme($color-button-theme);
+  @include mat-button-theme($color-button-theme);
+  @include mat-card-theme($color-card-theme);
+
+
+  .mat-bg-primary {
+    background: map-get($mat-orange, A200) !important;
+    color: #ffffff !important;
+  }
+
+  .mat-bg-accent {
+    background: map-get($mat-pink, A200) !important;
+    color: #ffffff !important;
+  }
+  .color {
+    color: #ffffff !important;
+    ::placeholder {
+      color: #ffffff !important;
+    }
+  }
+  
+  .pagination /deep/ .ngx-pagination {
+    li {
+      color: #ffffff;
+      a{
+        color: #ffffff;
+      }
+    }
+  }
+    
+  
+
+}
