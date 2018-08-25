@@ -78,22 +78,6 @@ export class WebsiteComponent implements OnInit, AfterViewInit {
     });
   }
 
-  addUser(data) {
-    this.service.addUser(data);
-  }
-
-  editUser(key, data) {
-    this.service.updateUser(key, data);
-  }
-
-  deleteUser(key) {
-    this.service.deleteUser(key);
-  }
-
-  changeTheme() {
-    this.user = JSON.parse(localStorage.getItem('user'));
-  }
-
   getElement() {
     return of(this.el.nativeElement.querySelector('.font'));
   }
