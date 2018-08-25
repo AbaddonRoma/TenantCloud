@@ -37,9 +37,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     {id: 'veryLarge', value: 'Very large'}
   ];
 
-  edit: boolean;
   bookmark = {title: '', url: ''};
-  Index = 0;
   bookmarkForm: FormGroup;
 
   page = 1;
